@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Market Cap Assignment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/marketcap.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Market Cap</h1>
+
+    <br><h3>Select period to see the change in market cap</h3>
+    <form>
+        <div class="form-group col-3">
+            <select class="custom-select" id="period"></select>
+        </div>
+    </form>
+
+    <div class="loading">Loading top 500 tokens by market cap, this could take a minute...</div>
+    <div id="spinner" class="loading spinner-grow text-danger m-5" role="status">
+    </div>
+
+    <div id="output"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<html>
+
+<head>
+    <title>
+        Week 4
+    </title>
+<!--    <link rel="stylesheet" href="css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        .container {
+            width: 30%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Delicious Fruits</h1>
+    <form id="fruit-form">
+        <ol id="fruitList">
+        </ol>
+
+        <div class="form-group">
+            <input type="text" class="form-control" id="addFruit" aria-describedby="addFruitHelp"
+                   placeholder="Add a Fruit">
+        </div>
+        <button id="submitFruit" type="submit" class="btn btn-primary">Add</button>
+    </form>
+
+    <hr>
+
+    <h1>Range</h1>
+    <form id="range-form">
+        <div class="form-group">
+            <input type="number" class="form-control" id="rstart" placeholder="Starting Nbr">
+            <input type="number" class="form-control" id="rend" placeholder="Ending Nbr">
+            <input type="number" class="form-control" id="rstep" placeholder="Step By">
+        </div>
+        <button id="submitRange" type="submit" class="btn btn-primary">Sum Range</button>
+         <hr>
+         <h3> Range </h3>
+         <div id="outputRange">--</div>
+         <h3>Sum of Range</h3>
+         <div id="rangeSum">--</div>
+    </form>
+
+</div>
+
+<script>
+    /* Fruit Submit */
+    $("#submitFruit").click((e) => {
+        e.preventDefault();
+        // Get current html list of fruits
+        let list = $("#fruitList").html();
+
+        // Get input value
+        let newFruit = $('#addFruit').val();
+
+        // Replace list html with current list and new list entry from input
+        $('#fruitList').html(list + "<li>" + newFruit + "</li>");
+
+        // Clear input field
+        $('#addFruit').val('');
+    });
+
+    /* Range Functions */
+
+    function calcRange(startArg, endArg, stepArg) {
+        /* Return array of numbers */
+        let start = parseInt(startArg);
+        let end = parseInt(endArg);
+        let step = parseInt(stepArg);
+        let range = [];
+
+        // Validations
+        if (start >= end) alert('Invalid range - starting value must be less than ending value');
+        if ((end - start) <= step) alert('Invalid step - its larger than the range');
+
+        // If step is empty, lets default to 1
+        step = (!step) ? 1 : step;
+
+        // If step is negative, lets show from end to start
+        if (step < 0) {
+            for(let i = end; i >= start; i += step) {
+                range.push(i);
+            }
+        } else {
+            for(let i = start; i <= end; i += step) {
+                range.push(i);
+            }
+        }
+
+        let sum = range.reduce((a,b) => a + b);
+
+        return [range, sum];
+    }
+
+    $('#submitRange').click((e) => {
+        e.preventDefault();
+        let start = $('#rstart').val();
+        let end = $('#rend').val();
+        let step = $('#rstep').val();
+
+        let rsl = calcRange(start, end, step);
+
+        $('#outputRange').html("<pre>" + rsl[0] + "</pre>");
+        $('#rangeSum').html("<pre>" + rsl[1] + "</pre>");
+    });
+</script>
+
+</body>
+</html>
