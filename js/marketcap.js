@@ -1,13 +1,19 @@
 /*
  Javscript file supporting marketcap.html page
   - IOT week 4 assignment
-  - show change in over all market cap from 7 days ago
+  - show change in market cap for a given period.
+
+  The user can select period supportd by Coin Gecko from a drop down to see the market
+  cap change for that period fo the top 500 tokens as ranked by market cap
+
+  Since there are over 7000 tokens, I limmited to 500.
+   - Could paramaterize that, but haven't for now
 */
 
 var validPeriods = ['1h', '24h', '7d', '14d', '30d', '200d', '1y'];
 
 $(document).ready(() => {
-
+    // Define period select box and do some house keeping
     $('#spinner').hide();
     $('.loading').hide();
     $('#period').empty();
@@ -16,7 +22,8 @@ $(document).ready(() => {
         $('#period').append($('<option></option>').val(p).html(p));
     });
 
-
+    // Upon selection of a period, show a spinner and initiate the process of
+    //  retrieving the data, doing some math, and displaying formatted results
     $('#period').change(() => {
         getAllMcData($("#period option:selected").val());
     });
@@ -25,6 +32,11 @@ $(document).ready(() => {
 /*
   Promise to wait on recursive API call to get all Market Cap data
    - There are over 7,000 coins and we can only get up to 250 at a time
+   - limiting to 500 based on the 'pageNbr' var in a conditional statement below that ends
+     the ajax recursion for retrieving 100 tokens per call
+
+   NOTE:  Not 100% sure my math is right, I didn't verify it as I was out of time, but I will in the future
+        if we keep working with this
 
    @input: period: limited string values as defined by API
  */
